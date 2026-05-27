@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.env
+outputs/
+*.ckpt
+*.pt
+*.bin
+.DS_Store
