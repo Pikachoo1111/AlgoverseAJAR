@@ -1,0 +1,63 @@
+# style_controls/prompts/style_control_prompts.yaml
+#
+# Six adversarial prompts for the P1.5 style-control experiment.
+#
+# PURPOSE
+# -------
+# Test whether HCDS detects prompt STYLE vs. actual REASONING.
+# If HCDS is stable across these 6 variants (shift < 20%), it is
+# evidence that HCDS is not just a stylistic detector.
+#
+# Design:
+#   Group A — CoT-style WORDING, but reasoning FORBIDDEN (3 prompts)
+#   Group B — no-CoT style WORDING, but reasoning ALLOWED    (3 prompts)
+#
+# Reference: PM execution plan Task P1.5.
+
+prompts:
+
+  # ── Group A: CoT-style wording, reasoning FORBIDDEN ─────────────────────
+
+  - id: cot_style_1
+    group: cot_style_no_reasoning
+    description: "Thoughtful/careful language; hard no-think directive"
+    system: >
+      Please answer carefully and thoughtfully. Keep the response concise.
+      Do not reason step by step.
+    user_suffix: "/no think\nRespond only with \\boxed{number}."
+
+  - id: cot_style_2
+    group: cot_style_no_reasoning
+    description: "Take-your-time phrasing; answer-only hard constraint"
+    system: >
+      Take your time and consider the problem.
+      Provide only your final answer with no working shown.
+    user_suffix: "Answer only. No steps. \\boxed{number}."
+
+  - id: cot_style_3
+    group: cot_style_no_reasoning
+    description: "Think-carefully opener; boxed-only output directive"
+    system: >
+      Think carefully before answering.
+      Output the answer directly, no explanation.
+    user_suffix: "/no think\n\\boxed{number} only."
+
+  # ── Group B: no-CoT style wording, reasoning ALLOWED ────────────────────
+
+  - id: nocot_style_1
+    group: nocot_style_reasoning_allowed
+    description: "Terse system; explicit reasoning-allowed suffix"
+    system: "Answer concisely."
+    user_suffix: "Solve carefully. Reason if needed. Provide boxed answer."
+
+  - id: nocot_style_2
+    group: nocot_style_reasoning_allowed
+    description: "Minimal 'be brief'; work-through permission"
+    system: "Be brief."
+    user_suffix: "Work through it if helpful. Final answer: \\boxed{number}."
+
+  - id: nocot_style_3
+    group: nocot_style_reasoning_allowed
+    description: "Short-answers-only system; internal reasoning permitted"
+    system: "Short answers only."
+    user_suffix: "You may reason internally. Give \\boxed{number}."
